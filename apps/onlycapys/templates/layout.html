@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="[[=URL('static')]]/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAAQEAAAEAIAAwAAAAFgAAACgAAAABAAAAAgAAAAEAIAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAA=="/>
+    <link rel="stylesheet" href="css/no.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bulma.min.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
+    <style>.py4web-validation-error{margin-top:-16px; font-size:0.8em;color:red}</style>
+    [[block page_head]]<!-- individual pages can customize header here -->[[end]]
+  </head>
+  <body>
+    <header>
+      <!-- Navigation bar -->
+      <nav class="white">
+        <!-- Logo -->
+        <a href="[[=URL('index')]]" style="margin-left: 100px;">
+          <img id="onlycaps_logo" src="../static/images/onlycapys_logo.png">
+        </a>
+        <!-- About Us -->
+        <a href="[[=URL('about')]]" style="margin-left: 25px;">
+          <strong>Our Team</strong>
+        </a>
+        
+        <!-- Message Us -->
+        <a href="[[=URL('form')]]"  style="margin-left: 25px;">
+          <strong>Contact Us</strong>
+        </a>
+        <!-- Rate Zoos -->
+        <a href="[[=URL('zoos')]]"  style="margin-left: 25px;">
+          <strong>CapyFact</strong>
+        </a>
+        <!-- Do not touch this -->
+        <label for="hamburger">☰</label>
+        <input type="checkbox" id="hamburger">
+        <!-- Left menu ul/li -->
+        [[block page_left_menu]][[end]]
+        <!-- Right menu ul/li -->
+        <ul>
+          [[if globals().get('user'):]]
+          <li>
+            <a class="navbar-link is-primary">
+              [[=globals().get('user',{}).get('email')]]
+            </a>
+            <ul>
+              <li><a href="[[=URL('auth/profile')]]">Edit Profile</a></li>
+              [[if 'change_password' in globals().get('actions',{}).get('allowed_actions',{}):]]
+                <li><a href="[[=URL('auth/change_password')]]">Change Password</a></li>
+              [[pass]]
+              <li><a href="[[=URL('auth/logout')]]">Logout</a></li>
+            </ul>
+          </li>
+          [[else:]]
+          <li style="margin-right: 150px;">
+            <strong>Log In <i class="fa fa-angle-right" aria-hidden="true"></i></strong>
+            <ul>
+              <li><a href="[[=URL('auth/register')]]">Sign up</a></li>
+              <li><a href="[[=URL('auth/login')]]">Log in</a></li>
+            </ul>
+          </li>
+          [[pass]]
+        </ul>
+      </nav>
+    </header>
+    <!-- beginning of HTML inserted by extending template -->
+    <center>
+      <div>
+        <!-- Flash alert messages, first optional one in data-alert -->
+        <flash-alerts class="padded" data-alert="[[=globals().get('flash','')]]"></flash-alerts>
+      </div>
+      <main class="padded">
+        <!-- contect injected by extending page -->
+        [[include]]
+      </main>
+    </center>
+    <!-- end of HTML inserted by extending template -->
+    <footer class="black padded">
+      <p style="margin-top: 15px;">
+        ©2023 OnlyCapys - Made with py4web 
+      </p>
+    </footer>
+  </body>
+  <!-- You've gotta have utils.js -->
+  <script src="js/axios.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/mycomponent.js"></script>
+  [[block page_scripts]]<!-- individual pages can add scripts here -->[[end]]
+</html>
